@@ -61,8 +61,8 @@ export function geocodeAddress(address: string): Promise<GeoResult | null> {
       return;
     }
 
-    AMap.plugin('AMap.Geocoder', () => {
-      const geocoder = new AMap.Geocoder();
+    window.AMap.plugin('AMap.Geocoder', () => {
+      const geocoder = new window.AMap.Geocoder();
       geocoder.getLocation(address, (status: string, result: any) => {
         if (status === 'complete' && result.info === 'OK') {
           const geocode = result.geocodes[0];
@@ -88,7 +88,7 @@ declare global {
 
 export function createMap(containerId: string, center?: [number, number]) {
   if (!window.AMap) throw new Error('高德地图未加载');
-  return new AMap.Map(containerId, {
+  return new window.AMap.Map(containerId, {
     zoom: 12,
     center: center || [113.55, 22.23], // default: Zhuhai area
     viewMode: '2D',
